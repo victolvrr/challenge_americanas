@@ -1,13 +1,13 @@
-import time
-import pytest
+import time, pytest, pyperclip
+import selenium.webdriver.support.expected_conditions as EC
 from WEB.pages.homepage import HomePage
 from WEB.pages.generatepage import GeneratePage
-import pyperclip
-import selenium.webdriver.support.expected_conditions as EC
+from WEB.pages.profilepage import ProfilePage
 
 def test_search_functionality(driver):
     home_page = HomePage(driver)
     generate_page = GeneratePage(driver)
+    profile_page = ProfilePage(driver)
 
     # Navigate to the home page
     home_page.go_to_homepage()
@@ -55,4 +55,23 @@ def test_search_functionality(driver):
     assert "olá, " in header_text
     # Click on header
     home_page.click_on_header()
+    # time.sleep(5)
+    # Access My Account
+    profile_page.assert_email_displayed()
+    # time.sleep(5)
+    # Click on Authentication
+    profile_page.click_authentication()
+    # Click on Password
+    profile_page.click_password()
+    # Switch to email tab
+    driver.switch_to.window(driver.window_handles[1])
+    # Get verification code
+    code = profile_page.get_verification_code()
+    # Switch to profile tab
+    driver.switch_to.window(driver.window_handles[0])
+    # Paste verification code
+    profile_page.paste_verification_code()
     time.sleep(5)
+    # Test Password Rules
+    profile_page.test_password_combination()
+    profile_page.assert_password_success_message()
