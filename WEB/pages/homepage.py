@@ -10,17 +10,21 @@ class HomePage(BasePage):
         self.sign_up_button = (By.XPATH, "//span[normalize-space()='olá, faça seu login']")
         self.overlay = (By.CLASS_NAME, "show-element")
         self.email_field = (By.CLASS_NAME, "render-container render-route-store-login")
-        self.header = (By.XPATH, "//span[contains(text(), 'olá')]")
+        self.my_account_button = (By.CLASS_NAME, "ButtonLogin_Container__sgzuk")
 
+
+    # Navigate to the home page
     def go_to_homepage(self):
         self.open()
         self.wait.until(EC.title_contains("Americanas"))
 
+    # Navigate to the login page
     def go_to_login(self):
         self.wait.until(EC.element_to_be_clickable(self.sign_up_button))
         button = self.driver.find_element(*self.sign_up_button)
         self.driver.execute_script("arguments[0].click();", button)
 
+    # Paste email into the email field
     def paste_email(self, email):
         email_field = (By.ID, "email")
         self.wait_visible(email_field)
@@ -28,17 +32,15 @@ class HomePage(BasePage):
         email_input.clear()
         email_input.send_keys(email)
 
+    # Remove banner if exists
     def remove_banner(self):
         try:
             overlay = self.wait_clickable(self.overlay)
             overlay.click()
         except:
-            print("Nenhum banner encontrado, continuando...")
-    
-    def is_user_logged_in(self):
-        header_text = self.driver.find_element(*self.header).text
-        return "olá, " in header_text
+            print("Nenhum banner encontrado")
 
+    # Get header text
     def get_header_text(self):
         try:
             element = self.wait_visible(self.header)
@@ -47,6 +49,7 @@ class HomePage(BasePage):
             print("Header não apareceu a tempo")
             return ""
 
-    def click_on_header(self):
-        header = self.wait_clickable(self.header)
-        self.driver.execute_script("arguments[0].click();", header)
+    # Click on My Account
+    def click_on_my_account(self):
+        my_account = self.wait_clickable(self.my_account_button)
+        self.driver.execute_script("arguments[0].click();", my_account)

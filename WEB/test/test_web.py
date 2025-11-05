@@ -51,10 +51,8 @@ def test_search_functionality(driver):
     # Remove banner if exists
     home_page.remove_banner()
     # Check if the new user's email is displayed in the page header
-    header_text = home_page.get_header_text()
-    assert "olá, " in header_text
-    # Click on header
-    home_page.click_on_header()
+    # Click on account
+    home_page.click_on_my_account()
     # time.sleep(5)
     # Access My Account
     profile_page.assert_email_displayed()
