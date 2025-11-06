@@ -7,24 +7,23 @@ class MacBookPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
         # Locators
-        self.macbook_click = (AppiumBy.ACCESSIBILITY_ID, "-7%\nApple MacBook Air 13, M3, cpu de 8 núcleos, gpu de 8 núcleos, 24GB ram, 512GB ssd - Meia-noite\n R$ 18.866,52\nR$ 17.469,00\nà vista")
-        self.macbook_title = (AppiumBy.ACCESSIBILITY_ID, "Apple MacBook Air 13, M3, cpu de 8 núcleos, gpu de 8 núcleos, 24GB ram, 512GB ssd - Meia-noite")
-        self.macbook_price = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("R$ 17.469,00")')
+        self.macbook_click = (AppiumBy.ACCESSIBILITY_ID, '-7%\nApple MacBook Air 13, M2, cpu de 8 núcleos, gpu de 8 núcleos, 16GB ram, 256GB ssd- Meia-noite\n R$ 10.496,52\nR$ 9.719,00\nà vista')
+        self.macbook_title = (AppiumBy.ACCESSIBILITY_ID, 'Apple MacBook Air 13, M2, cpu de 8 núcleos, gpu de 8 núcleos, 16GB ram, 256GB ssd- Meia-noite')
+        self.macbook_price = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("R$ 9.719,00")')
         self.cep_find = (AppiumBy.ACCESSIBILITY_ID, "Simular Frete")
         self.cep_input = (AppiumBy.CLASS_NAME, "android.widget.EditText")
         self.calculate = (AppiumBy.ACCESSIBILITY_ID, "Calcular")
         self.invalid_cep = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("Snackbar alerta")')
-        self.valid_cep = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("Receba em até 11 dias úteis: R$ 88,77")')
         self.buy_button = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("Comprar agora")')
         self.delete_cep = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("Apagar cep pesquisado")')
-        self.assert_cart = (AppiumBy.ACCESSIBILITY_ID, "Apple MacBook Air 13, M3, cpu de 8 núcleos, gpu de 8 núcleos, 24GB ram, 512GB ssd - Meia-noite\nDe R$ 18.866,52\nPor R$ 17.469,00")
+        self.assert_cart = (AppiumBy.ACCESSIBILITY_ID, 'Apple MacBook Air 13, M2, cpu de 8 núcleos, gpu de 8 núcleos, 16GB ram, 256GB ssd- Meia-noite\nDe R$ 10.496,52\nPor R$ 9.719,00')
         self.increase_button = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("Aumentar quantidade em 1")')
         self.decrease_button = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("Reduzir quantidade em 1")')
         self.quantity_field = (AppiumBy.CLASS_NAME, "android.widget.EditText")
 
     # click MacBook
     def click_macbook(self):
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.macbook_click))
+        WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable(self.macbook_click))
         click = self.driver.find_element(*self.macbook_click)
         click.click()
 
@@ -68,7 +67,7 @@ class MacBookPage(BasePage):
         cep_delete.click()
         element_cep = self.wait_for_visibility_of_element(*self.cep_input)
         element_cep.click()
-        element_cep.send_keys("12345-678")
+        element_cep.send_keys("50030-230")
         calculate = self.driver.find_element(*self.calculate)
         calculate.click()
 

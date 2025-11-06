@@ -26,8 +26,9 @@ class HomePage(BasePage):
         self.driver.find_element(*self.click_pictures).click()
 
     def click_search_button(self):
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.click_search))
+        WebDriverWait(self.driver, 15).until(EC.element_to_be_clickable(self.click_search))
         self.driver.find_element(*self.click_search).click()
 
     def enter_search_query(self):
-        self.send_keys_to_element(*self.search_input, "Apple MacBook Air 13, M3, cpu de 8 núcleos, gpu de 8 núcleos, 24GB ram, 512GB ssd - Meia-noite")
+        WebDriverWait(self.driver, 15).until(EC.element_to_be_clickable(self.search_input))
+        self.send_keys_to_element(*self.search_input, "Apple MacBook Air 13, M2, cpu de 8 núcleos, gpu de 8 núcleos, 16GB ram, 256GB ssd- Meia-noite")
