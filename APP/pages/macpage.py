@@ -1,3 +1,4 @@
+import time
 from APP.pages.basepage import BasePage
 from appium.webdriver.common.appiumby import AppiumBy
 from selenium.webdriver.support.ui import WebDriverWait
@@ -38,14 +39,20 @@ class MacBookPage(BasePage):
         element = self.wait_for_visibility_of_element(*self.macbook_price)
         return element.get_attribute("content-desc")
 
-    # Scroll to a specific element
-    def scroll_to_element(self, locator):
+    # Scroll to zip code input
+    def scroll_to_zip_code(self):
+        # Rola até o campo de CEP e retorna o elemento.
         try:
-            value = locator[1]
-            ui = (f'new UiScrollable(new UiSelector().scrollable(true))' f'.scrollForward().scrollIntoView('f'new UiSelector().descriptionContains("{value}"));')
-            self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, ui)
-        except Exception:
-            pass  # Evita travar caso já esteja visível
+            # scroll pra baixo algumas vezes
+            for _ in range(3):
+                self.driver.swipe(500, 1600, 500, 400, 800)
+                try:
+                    return self.driver.find_element(*self.cep_input)
+                except Exception:
+                    pass
+            raise Exception("Campo de CEP não encontrado após scroll.")
+        except Exception as e:
+            raise AssertionError(f"Falha ao encontrar o campo CEP: {e}")
 
     # Enter an invalid ZIP code
     def enter_invalid_zip_code(self):
@@ -54,7 +61,7 @@ class MacBookPage(BasePage):
         cep_element = self.wait_for_visibility_of_element(*self.cep_input)
         cep_element.clear()
         cep_element.click()
-        cep_element.send_keys("00000-000")
+        cep_element.send_keys("00000000")
         calc = self.driver.find_element(*self.calculate)
         calc.click()
     
@@ -70,7 +77,7 @@ class MacBookPage(BasePage):
         cep_delete.click()
         element_cep = self.wait_for_visibility_of_element(*self.cep_input)
         element_cep.click()
-        element_cep.send_keys("50030-230")
+        element_cep.send_keys("50710330")
         calculate = self.driver.find_element(*self.calculate)
         calculate.click()
 
@@ -113,6 +120,6 @@ class MacBookPage(BasePage):
 
     # Back to product list
     def back_to_product_list(self):
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.back_button))
+        WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable(self.back_button))
         back = self.driver.find_element(*self.back_button)
         back.click()

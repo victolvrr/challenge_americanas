@@ -29,7 +29,7 @@ def test_full_purchase_flow(driver):
     assert "Apple MacBook Air 13" in macbook_page.get_macbook_title()
     assert "R$ 9.719,00" in macbook_page.get_macbook_price()
     # scroll to cep input
-    macbook_page.scroll_to_element(macbook_page.cep_find)
+    macbook_page.scroll_to_zip_code()
     # enter invalid zip code
     macbook_page.enter_invalid_zip_code()
     assert macbook_page.message() is True
@@ -69,7 +69,7 @@ def test_full_purchase_flow(driver):
     # Validate iPhone price
     assert "R$ 12.958,80" in iphone_page.get_price()
     # Scroll to Cep
-    macbook_page.scroll_to_element(macbook_page.cep_find)
+    macbook_page.scroll_to_zip_code()
     # enter invalid zip code
     macbook_page.enter_invalid_zip_code()
     # enter valid zip code
@@ -108,7 +108,7 @@ def test_full_purchase_flow(driver):
     # Get watch price
     assert "R$ 6.269,00" in watch_page.get_watch_price()
     # Scroll to Cep
-    macbook_page.scroll_to_element(macbook_page.cep_find)
+    macbook_page.scroll_to_zip_code()
     # enter invalid zip code
     macbook_page.enter_invalid_zip_code()
     # enter valid zip code
@@ -138,6 +138,8 @@ def test_full_purchase_flow(driver):
     cart_page.check_cart_total()
     # Check if the proceed to checkout button is correct
     cart_page.check_proceed_to_checkout_button()
+    # Scroll to the zip code input
+    cart_page.scroll_to_zip_code_input()
     # Enter an invalid ZIP code
     cart_page.enter_invalid_zip_code()
     assert cart_page.message() is True
