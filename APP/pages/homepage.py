@@ -14,19 +14,19 @@ class HomePage(BasePage):
         self.search_input = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.ImageView").instance(0)')
 
     def click_local_permission(self):
-        WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable(self.click_local))
+        WebDriverWait(self.driver, 15).until(EC.element_to_be_clickable(self.click_local))
         self.driver.find_element(*self.click_local).click()
 
     def click_notification_permission(self):
-        WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable(self.click_notification))
+        WebDriverWait(self.driver, 15).until(EC.element_to_be_clickable(self.click_notification))
         self.driver.find_element(*self.click_notification).click()
 
     def click_pictures_permission(self):
-        WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable(self.click_pictures))
+        WebDriverWait(self.driver, 15).until(EC.element_to_be_clickable(self.click_pictures))
         self.driver.find_element(*self.click_pictures).click()
 
     def click_search_button(self):
-        WebDriverWait(self.driver, 15).until(EC.element_to_be_clickable(self.click_search))
+        WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable(self.click_search))
         self.driver.find_element(*self.click_search).click()
 
     def enter_search_query(self):

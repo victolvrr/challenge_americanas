@@ -48,17 +48,13 @@ class CartPage(BasePage):
         WebDriverWait(self.driver, 15).until(EC.presence_of_element_located(self.proceed_to_checkout))
         button = self.driver.find_element(*self.proceed_to_checkout)
 
-        # o texto real está no atributo content-desc
+        # texto content-desc
         content_desc = button.get_attribute("content-desc")
         assert content_desc, "Não foi possível capturar o texto do botão 'fechar pedido'."
 
         normalized = content_desc.lower().replace(" ", "").replace(".", "").replace(",", ".")
-    
-        # ✅ aqui é com ponto, não vírgula!
         expected_total = 2 * 9719.00  # 19.438,00
-    
         expected = f"{expected_total:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")  # "19.438,00"
-
         assert expected.replace(".", "").replace(",", ".") in normalized, (f"Valor incorreto no botão. Esperado: {expected}, encontrado: {content_desc}")
 
     # Enter an invalid ZIP code

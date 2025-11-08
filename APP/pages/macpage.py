@@ -20,10 +20,11 @@ class MacBookPage(BasePage):
         self.increase_button = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("Aumentar quantidade em 1")')
         self.decrease_button = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("Reduzir quantidade em 1")')
         self.quantity_field = (AppiumBy.CLASS_NAME, "android.widget.EditText")
+        self.back_button = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("Voltar")')
 
     # click MacBook
     def click_macbook(self):
-        WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable(self.macbook_click))
+        WebDriverWait(self.driver, 30).until(EC.presence_of_element_located(self.macbook_click))
         click = self.driver.find_element(*self.macbook_click)
         click.click()
 
@@ -40,14 +41,16 @@ class MacBookPage(BasePage):
     # Scroll to a specific element
     def scroll_to_element(self, locator):
         try:
-            desc = locator[1]
-            ui = ('new UiScrollable(new UiSelector().scrollable(true)).setAsVerticalList()'f'.scrollForward().scrollIntoView(new UiSelector().descriptionContains("{desc}"))')
+            value = locator[1]
+            ui = (f'new UiScrollable(new UiSelector().scrollable(true))' f'.scrollForward().scrollIntoView('f'new UiSelector().descriptionContains("{value}"));')
             self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, ui)
         except Exception:
-            pass
+            pass  # Evita travar caso já esteja visível
 
     # Enter an invalid ZIP code
     def enter_invalid_zip_code(self):
+        cep_delete = self.wait_for_visibility_of_element(*self.delete_cep)
+        cep_delete.click()
         cep_element = self.wait_for_visibility_of_element(*self.cep_input)
         cep_element.clear()
         cep_element.click()
@@ -107,3 +110,9 @@ class MacBookPage(BasePage):
     def increase_quantity_again(self):
         increase = self.driver.find_element(*self.increase_button)
         increase.click()
+
+    # Back to product list
+    def back_to_product_list(self):
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.back_button))
+        back = self.driver.find_element(*self.back_button)
+        back.click()

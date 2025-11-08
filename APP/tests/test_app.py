@@ -3,12 +3,16 @@ import time
 from APP.pages.homepage import HomePage
 from APP.pages.macpage import MacBookPage
 from APP.pages.cartpage import CartPage
+from APP.pages.iphonepage import iPhonePage
+from APP.pages.watchpage import WatchPage
 
 def test_full_purchase_flow(driver):
     # init pages
     home_page = HomePage(driver)
     macbook_page = MacBookPage(driver)
     cart_page = CartPage(driver)
+    iphone_page = iPhonePage(driver)
+    watch_page = WatchPage(driver)
 
     # click local permission
     home_page.click_local_permission()
@@ -38,6 +42,84 @@ def test_full_purchase_flow(driver):
     product_info = product_info.replace("\xa0", " ")
     assert "Apple MacBook Air 13" in product_info
     assert "R$ 9.719,00" in product_info
+    # Increase the quantity to 2 and check if the quantity field is updated.
+    macbook_page.increase_quantity()
+    assert macbook_page.get_quantity_value() == 2
+    # Decrease the quantity to 1 and check if the decrease button (-) becomes inactive.
+    macbook_page.decrease_quantity()
+    # Increase the quantity to 2 again.
+    macbook_page.increase_quantity_again()
+    assert macbook_page.get_quantity_value() == 2
+    # Click the add button
+    cart_page.click_add_button()
+    # Click the remove modal button
+    cart_page.click_remove_modal()
+    # Back to product list
+    macbook_page.back_to_product_list()
+    # Search for iPhone
+    iphone_page.search()
+    # Remove text
+    iphone_page.remove()
+    # Send keys
+    iphone_page.send_keys()
+    # Click the iPhone
+    iphone_page.click()
+    # Validate iPhone title
+    assert "Apple iPhone 16 Pro Max 1TB Titânio preto" in iphone_page.get_iphone_title()
+    # Validate iPhone price
+    assert "R$ 12.958,80" in iphone_page.get_price()
+    # Scroll to Cep
+    macbook_page.scroll_to_element(macbook_page.cep_find)
+    # enter invalid zip code
+    macbook_page.enter_invalid_zip_code()
+    # enter valid zip code
+    macbook_page.enter_valid_zip_code()
+    # buy MacBook
+    macbook_page.buy_macbook()
+    # In the cart popup, confirm the product name and price again.
+    product_info = iphone_page.assert_product_in_cart()
+    product_info = product_info.replace("\xa0", " ")
+    assert "Apple iPhone 16 Pro Max 1TB Titânio preto" in product_info
+    assert "R$ 12.958,80" in product_info
+    # Increase the quantity to 2 and check if the quantity field is updated.
+    macbook_page.increase_quantity()
+    assert macbook_page.get_quantity_value() == 2
+    # Decrease the quantity to 1 and check if the decrease button (-) becomes inactive.
+    macbook_page.decrease_quantity()
+    # Increase the quantity to 2 again.
+    macbook_page.increase_quantity_again()
+    assert macbook_page.get_quantity_value() == 2
+    # Click the add button
+    cart_page.click_add_button()
+    # Click the remove modal button
+    cart_page.click_remove_modal()
+    # Back to product list
+    macbook_page.back_to_product_list()
+    # Search for iPhone
+    iphone_page.search()
+    # Remove text
+    iphone_page.remove()
+    # Send keys
+    watch_page.send_watch()
+    # Click the watch
+    watch_page.click()
+    # Get watch title
+    assert "Apple Watch Series 10 gps" in watch_page.get_watch_title()
+    # Get watch price
+    assert "R$ 6.269,00" in watch_page.get_watch_price()
+    # Scroll to Cep
+    macbook_page.scroll_to_element(macbook_page.cep_find)
+    # enter invalid zip code
+    macbook_page.enter_invalid_zip_code()
+    # enter valid zip code
+    macbook_page.enter_valid_zip_code()
+    # buy MacBook
+    macbook_page.buy_macbook()
+    # In the cart popup, confirm the product name and price again.
+    product_info = watch_page.assert_watch_in_cart()
+    product_info = product_info.replace("\xa0", " ")
+    assert "Apple Watch Series 10 gps" in product_info
+    assert "R$ 6.269,00" in product_info
     # Increase the quantity to 2 and check if the quantity field is updated.
     macbook_page.increase_quantity()
     assert macbook_page.get_quantity_value() == 2
