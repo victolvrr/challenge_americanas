@@ -10,7 +10,7 @@ class HomePage(BasePage):
         self.click_local = (AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("com.android.permissioncontroller:id/permission_allow_foreground_only_button")')
         self.click_notification = (AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("com.android.permissioncontroller:id/permission_allow_button")')
         self.click_pictures = (AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("com.android.permissioncontroller:id/permission_allow_foreground_only_button")')
-        self.click_search = (AppiumBy.ACCESSIBILITY_ID, "busque aqui seu produto")
+        self.click_search = (AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().description("busque aqui seu produto")')
         self.search_input = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.ImageView").instance(0)')
 
     def click_local_permission(self):
@@ -35,10 +35,11 @@ class HomePage(BasePage):
             print("permissão de fotos não apareceu seguindo...")
 
     def click_search_button(self):
-        WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable(self.click_search))
         search = self.driver.find_element(*self.click_search)
+        WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable(self.click_search))
         search.click()
 
     def enter_search_query(self):
         WebDriverWait(self.driver, 15).until(EC.element_to_be_clickable(self.search_input))
-        self.send_keys_to_element(*self.search_input, "Apple MacBook Air 13, M2, cpu de 8 núcleos, gpu de 8 núcleos, 16GB ram, 256GB ssd- Meia-noite")
+        self.driver.find_element(*self.search_input).click()
+        self.send_keys_to_element(*self.search_input, "Apple MacBook Air 13, M3, cpu de 8 núcleos, gpu de 8 núcleos, 16GB ram, 256GB ssd- Cinza-espacial")

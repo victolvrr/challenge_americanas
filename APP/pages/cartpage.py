@@ -10,11 +10,11 @@ class CartPage(BasePage):
         self.add_button = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("adicionar e continuar comprando")')
         self.remove_modal = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("Fechar modal carrinho")')
         self.click_cart = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("Carrinho")')
-        self.cart_product_macbook = (AppiumBy.ACCESSIBILITY_ID, 'Apple MacBook Air 13, M2, cpu de 8 núcleos, gpu de 8 núcleos, 16GB ram, 256GB ssd- Meia-noite')
-        self.cart_price_macbook = (AppiumBy.ACCESSIBILITY_ID, 'De R$ 20.993,04\nPor R$ 19.438,00')
+        self.cart_product_macbook = (AppiumBy.ACCESSIBILITY_ID, 'Apple MacBook Air 13, M3, cpu de 8 núcleos, gpu de 8 núcleos, 16GB ram, 256GB ssd- Cinza-espacial')
+        self.cart_price_macbook = (AppiumBy.ACCESSIBILITY_ID, 'De R$ 27.969,84\nPor R$ 25.898,00')
         self.cart_price_iPhone = (AppiumBy.ACCESSIBILITY_ID, 'Cor: Preto\nR$ 25.917,60')
         self.cart_price_watch = (AppiumBy.ACCESSIBILITY_ID, 'De R$ 13.541,04\nPor R$ 12.538,00')
-        self.proceed_to_checkout = (AppiumBy.ACCESSIBILITY_ID, 'fechar pedido\nR$ 57.893,60')
+        self.proceed_to_checkout = (AppiumBy.ACCESSIBILITY_ID, 'fechar pedido\nR$ 64.353,60')
         self.zip_code = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("Digite o CEP")')
         self.calculate_shipping = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("Calcular")')
         self.delete_zip = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("Apagar cep pesquisado")')
@@ -41,7 +41,7 @@ class CartPage(BasePage):
     
     # Check if the total product value and the order subtotal are double the unit price.
     def check_cart_total(self):
-        expected_total_macbook = 2 * 9719.00
+        expected_total_macbook = 2 * 12949.00
         expected_total_iphone = 2 * 12958.80
         expected_total_watch = 2 * 6269.00
 
@@ -81,7 +81,7 @@ class CartPage(BasePage):
         normalized = (content_desc.lower().replace("r$", "").replace(" ", "").replace("\xa0", "").replace(".", "").replace(",", "."))
 
         # Totais esperados
-        total_macbook = 2 * 9719.00
+        total_macbook = 2 * 12949.00
         total_iphone = 2 * 12958.80
         total_watch = 2 * 6269.00
 

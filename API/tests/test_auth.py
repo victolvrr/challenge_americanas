@@ -1,14 +1,14 @@
 import pytest
 import requests
 import random
-from conftest import BASE_URL
+from API.conftest import BASE_URL
 
 # SCENARIO 8 - Successful User Registration
 def test_register_success():
     email = f"testuser{random.randint(1000,9999)}@example.com"
     payload = {"username": f"user{random.randint(1000,9999)}","email": email,"password": "password123"}
     r = requests.post(f"{BASE_URL}/auth/register", json=payload)
-    print(r.json())  # para debug
+    print(r.json())
     assert r.status_code == 200
     assert r.json()["email"] == email
 

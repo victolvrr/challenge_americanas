@@ -1,7 +1,6 @@
 from concurrent.futures import wait
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
 from WEB.conftest import driver
 
 class BasePage:

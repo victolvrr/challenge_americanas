@@ -12,7 +12,6 @@ class HomePage(BasePage):
         self.email_field = (By.CLASS_NAME, "render-container render-route-store-login")
         self.my_account_button = (By.CLASS_NAME, "ButtonLogin_Container__sgzuk")
 
-
     # Navigate to the home page
     def go_to_homepage(self):
         self.open()

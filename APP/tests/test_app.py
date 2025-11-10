@@ -27,7 +27,7 @@ def test_full_purchase_flow(driver):
     macbook_page.click_macbook()
     # validate MacBook page
     assert "Apple MacBook Air 13" in macbook_page.get_macbook_title()
-    assert "R$ 9.719,00" in macbook_page.get_macbook_price()
+    assert "R$ 12.949,00" in macbook_page.get_macbook_price()
     # scroll to cep input
     macbook_page.scroll_to_zip_code()
     # enter invalid zip code
@@ -41,7 +41,7 @@ def test_full_purchase_flow(driver):
     product_info = macbook_page.assert_product_in_cart()
     product_info = product_info.replace("\xa0", " ")
     assert "Apple MacBook Air 13" in product_info
-    assert "R$ 9.719,00" in product_info
+    assert "R$ 12.949,00" in product_info
     # Increase the quantity to 2 and check if the quantity field is updated.
     macbook_page.increase_quantity()
     assert macbook_page.get_quantity_value() == 2
