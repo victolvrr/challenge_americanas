@@ -86,7 +86,7 @@ def test_update_nonexistent_product(auth_token):
     response = requests.put(f"{BASE_URL}/products/999999", headers=headers, json={"Price": "10.00"})
     assert response.status_code == 404
 
-# 31: Update a Product That Doesn't Exist
+# 31: Update Another User's Product
 def test_update_other_user_product(auth_token_user_b, other_user_product_id):
     headers = {"Authorization": f"Bearer {auth_token_user_b}"}
     update_data = {"Price": "1500.00"}

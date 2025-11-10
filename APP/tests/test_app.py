@@ -149,3 +149,4 @@ def test_full_purchase_flow(driver):
     cart_page.close_product()
     # Validate email
     assert cart_page.validate_email() is True
+    driver.quit()

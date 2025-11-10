@@ -24,11 +24,13 @@ def create_user():
         return {"token": token, "email": email, "password": password}
     return _create_user
 
+# Fixture para obter o token de autenticação
 @pytest.fixture
 def auth_token(create_user):
     user = create_user()
     return user["token"]
 
+# Fixture para obter o token do segundo usuário
 @pytest.fixture
 def second_user_token(create_user):
     user = create_user()
