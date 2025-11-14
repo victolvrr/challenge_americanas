@@ -73,4 +73,3 @@ def test_search_functionality(driver):
     # Test Password Rules
     profile_page.test_password_combination()
     profile_page.assert_password_success_message()
-    driver.quit()

@@ -1,0 +1,3 @@
+{'detail': 'Email already registered'}
+{'detail': 'Invalid email format'}
+{'detail': 'Missing data'}
