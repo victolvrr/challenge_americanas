@@ -61,3 +61,4 @@ def test_get_wishlists_no_auth():
     response = requests.get(f"{BASE_URL}/wishlists")
     assert response.status_code == 401
     assert "not authenticated" in response.text.lower()
+    # test

@@ -117,3 +117,4 @@ def test_delete_other_user_product(auth_token_user_b, other_user_product_id):
     response = requests.delete(f"{BASE_URL}/products/{other_user_product_id}", headers=headers)
     assert response.status_code == 404
     assert "not found" in response.text.lower() or "product" in response.text.lower()
+    # test

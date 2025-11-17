@@ -37,3 +37,4 @@ def test_endpoints_with_invalid_token(sample_wishlist_id, sample_product_id):
         response = requests.request(method, url, headers=headers, json=payload)
         assert response.status_code in [401, 403], f"{url} deveria recusar com token inválido, mas retornou {response.status_code}: {response.text}"
         assert "could not validate" in response.text.lower() or "expired" in response.text.lower()
+        # test
